@@ -1,0 +1,521 @@
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns='http://www.ehcache.org/v3'
+	xsi:schemaLocation="
+            http://www.ehcache.org/v3 
+            http://www.ehcache.org/schema/ehcache-core-3.7.xsd">
+	<!-- Persistent cache directory -->
+	<!-- <persistence directory="spring-boot-ehcache/admin-cache" /> -->
+	<!-- Default cache template -->
+	<cache-template name="default-template">
+		<resources>
+			<heap unit="entries">2000</heap>
+			<offheap unit="MB">1</offheap>
+		</resources>
+	</cache-template>
+	<cache-template name="medium-template">
+		<resources>
+			<heap unit="entries">5000</heap>
+			<offheap unit="MB">5</offheap>
+		</resources>
+	</cache-template>
+	<!-- Cache configuration -->
+	<cache alias="AllStateDistrictsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="DistrictSubDistrictAndTownListCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllSubDistrictAndTownListCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="CurrentFacilityStateAndDistrictsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="StateAndDistrictsByFacilityCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllStateListCache" uses-template="default-template">
+	</cache>
+	<cache alias="AllDistrictListByStateCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllSubDistrictListByDistrictCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllTownListBySubDistrictCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMaritalStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOccupationCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterEmploymentStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterEducationLevelCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllBeneficiaryCategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllEntryPointCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllRiskFactorCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMonthlyIncomeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllGenderCache" uses-template="default-template">
+	</cache>
+	<cache alias="AllBeneficiaryActivityStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllHivStatusCache" uses-template="default-template">
+	</cache>
+	<cache alias="BeneficiaryArtTransferredFromCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterClientStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDiseaseClassCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFunctionalStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterClinicalStageCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterExposureSeverityCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllInjuryExposureModeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterWeightBandCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTbTreatmentStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterVaccineTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHivTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTbRegimenCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRxOutcomeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOpportunisticInfectionsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSideEffectsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSubstituteReasonsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterStopReasonsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPepPrescriptionCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterBaselineTestsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHrgPrimaryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHrgSecondaryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSubcategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOstStatusBeneficiaryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterCounsellingTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHealthStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDrugsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSyphilisStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterScreeningStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOstAssementStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDiagnosisTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterKitTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTreatmentTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterReferralStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterYesOrNoCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPlaceOfArtCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRecepientTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDrugLineCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIndentStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIndentReasonsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTestTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTestsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterResultTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSampleRemarkCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterResultStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterBatchStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSampleStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRegimenLineOptionsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRegimenAdultPedOptionsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterAllBatchNoOptionsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterAllLabTypesCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRelationsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHabitsAlcoholUseCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHabitsSmokingCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTobaccoUseCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHbvStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOtherAilmentsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterContraceptionCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterObstetricHistoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPurposesCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="ClientStatusByFacilityTypeIdCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPrimaryDrugCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDrugComplicationsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterInfectionTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="TbScreeningStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFollowUpTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRegistrationDoneAtCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterStayingWithCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMobilityTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDestinationDurationCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterReferredfromCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterReferredbyCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPregnancyTypeCaseCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterArvProphylaxisCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterInfantBreastFeedCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRouteOfTransmissionCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTbResultCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterNotTestingReasonCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIctcBeneficiaryStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterictcFollowUpTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterPartnerStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDeliveryOutcomeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSampleCollectionStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterSwitchReasonsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterArtBeneficiaryStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTreatmentLineCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFourSScreeningCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOrganisationTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterArtStayingWithCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterBirthHistoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterInfantFeedingCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterVaccineStageCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterVitaminAAgeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterInvestigationCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterArtTreatmentStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIptStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFoursSymptomCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHcvStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHivExposureCodeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHivSourceStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDiagnosedByCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTreatmentUnderCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDnaPcrResultCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMsmSubCategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIduSubCategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFswSubCategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTgSubCategoryCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterContactTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterCommodityTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterProductTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMachineCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFacilityTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterProductUomCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRelationTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="SocialWelfareMasterForFacilityCache"
+		uses-template="default-template">
+	</cache>
+	<!-- <cache alias="AllMiniMasterForArtAddBenficiaryCache" uses-template="medium-template"> 
+		</cache> -->
+	<cache alias="AllMasterOccupationTruckerCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMigrantOccupationCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterHivScreeningStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMigrationPatternCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterIpcTopicCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTakeHomeDaysCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterRelationshipCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOstAssessmentReasonCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterFollowupByCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOpioidOverdoseReasonsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterStiRtiDiagnosisTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterClinicalTreatmentTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTreatmentAbssessSitesCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTreatmentAbssessTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterDiagnosisRecordedAtCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterMultimonthDispensationCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterTrainingTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterQmsTestStatusCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOstFollowupReasonCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterOstFollowupSideEffectCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterLacTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="GenderAndPregnancyTypeCache" uses-template="default-template">
+	</cache>
+	<cache alias="PurposeOfVisitCache" uses-template="default-template">
+	</cache>
+	<cache alias="AppointmentStatusCache" uses-template="default-template">
+	</cache>
+	<cache alias="NacoProfileCache" uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterAdherenceRemarksCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllReferralTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllSacepReferralReasonCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterClientStatusTiCoreCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllSacepReviewTypesCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="AllMasterArtCounsellingTypeCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="StiSymptomsCache"
+		uses-template="default-template">
+	</cache>
+	<cache alias="TbSymptomsCache"
+		uses-template="default-template">
+	</cache>
+</config>

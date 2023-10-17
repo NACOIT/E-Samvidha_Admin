@@ -1,0 +1,8 @@
+/target/
+.classpath
+.project
+.settings/
+temp/logs/soch-admin-log.log
+temp/
+spring-boot-ehcache/admin-cache/.lock
+/bin/

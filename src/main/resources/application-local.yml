@@ -1,0 +1,68 @@
+spring:
+   jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      database: POSTGRESQL
+      generate-ddl: false
+      open-in-view: false
+      show-sql: true
+      hibernate:
+         ddl-auto: none
+         use-new-id-generator-mappings: true
+      properties:
+         hibernate.id.new_generator_mappings: true
+         hibernate.cache.use_second_level_cache: false
+         hibernate.cache.use_query_cache: true
+         hibernate.generate_statistics: false
+   datasource:
+       type: com.zaxxer.hikari.HikariDataSource
+       #dataSourceClassName: org.postgresql.Driver
+       #url: jdbc:postgresql://10.25.69.25:5432/soch_stag_mask_db?currentSchema=soch
+       #username: soch_stag_app_user
+       #password: SochApp@2020
+       
+       #url: jdbc:postgresql://localhost:5432/anudan?currentSchema=soch
+       url: jdbc:postgresql://localhost:5432/anudan?currentSchema=soch
+       username: postgres
+       password: 12345
+       
+       #url: jdbc:postgresql://localhost:5432/postgres?currentSchema=soch
+       #username: postgres
+       #password: root
+       hikari:
+       poolName: Hikari
+logging:
+   level:
+       root: info
+       org: info
+       gov: info
+       #org.hibernate: error
+notification:
+   emailServiceUrl: http://localhost:8085/notification/sendemail/
+   systemEmailServiceUrl: http://localhost:8085/notification/sendsystememail/
+   smsServiceUrl: http://localhost:8085/notification/sendsms/
+   whatsappServiceUrl: http://localhost:8085/notification/sendwhatsapp/
+   webuserNotificationUrl: http://localhost:8085/notification/webnotification/send/ 
+   systemSmsServiceUrl: http://localhost:8085/notification/sendsystemsms/
+sso:
+  manager:
+    url: http://34.212.135.8:1978/ssosession
+cache:
+  clearEndpointsAdmin: http://localhost:8080/admin/system/clearCache
+accessKey: devkey@3
+captchaEnabled: false
+captchaEnabledForMobile: false
+disclaimerFrequencyDays: 30
+crossDomainAllowedOrigins:
+jwtSecret: U09DSCtUMHBTM2NyRXQrQXV0aG9yaXphdGlvbit0b2tlbitrZXk=
+kylinUrl: https://kylin.project-qasoch.org/kylin/
+ssoEnabled: false    
+exportRecordsLimit: 50000
+serverLoggingUrl: http://project-qasoch.org/dev/api/logs
+ssoDomain: project-qasoch.org
+notification-base-url: https://projectsoch-test.org/soch/
+#notification-base-url: http://localhost:8085/
+validateByOtpEnabled: true
+appleAppStoreReviewEnabled: false
+appleAppStoreReviewMobileNumber: 9953050526
+appleAppStoreReviewOtp: 2511
+isArtVlBackDateEntryAllowed: false

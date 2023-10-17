@@ -1,0 +1,139 @@
+1. save 
+endpoint : http://localhost:8080/admin/product/save POST
+request : 
+{
+    "id": null,
+    "productName": "aa",
+    "uom": {
+        "id": 1
+    },
+    "batchNo": "Mandatory",
+    "shortCode": "qq",
+    "productType": {
+        "id": "2",
+        "name": "chumma"
+    },
+    "division": {
+        "id": "1",
+        "name": "chumma"
+    },
+    "facilityTypes": [],
+    "labTypes": [],
+    "minShelfLife": 12,
+    "productImage": null,
+    "formulationComposition": "aa",
+    "productDetails": "ww",
+    "status": {
+        "id": "1",
+        "name": "Active"
+    }
+}
+
+response :
+ true
+
+2. list
+ endpoint : http://localhost:8080/admin/product/list  GET
+  response : 
+[
+    {
+        "id": 1,
+        "productName": "test product1",
+        "uom": {
+            "id": 1,
+            "code": null,
+            "name": "gram"
+        },
+        "batchNo": "batch1",
+        "shortCode": "test short code",
+        "productType": {
+            "id": 1,
+            "code": null,
+            "name": "Blood Banks"
+        },
+        "division": {
+            "id": 1,
+            "code": null,
+            "name": "NACO"
+        },
+        "facilityTypes": null,
+        "labTypes": null,
+        "minShelfLife": "12",
+        "productImage": null,
+        "formulationComposition": "formulationtest",
+        "productDetails": "test details",
+        "status": {
+            "id": 1,
+            "code": null,
+            "name": "Active"
+        }
+    },
+    {
+        "id": 2,
+        "productName": "test product2",
+        "uom": {
+            "id": 1,
+            "code": null,
+            "name": "gram"
+        },
+        "batchNo": "batch1",
+        "shortCode": "test short code",
+        "productType": {
+            "id": 1,
+            "code": null,
+            "name": "Blood Banks"
+        },
+        "division": {
+            "id": 1,
+            "code": null,
+            "name": "NACO"
+        },
+        "facilityTypes": null,
+        "labTypes": null,
+        "minShelfLife": "12",
+        "productImage": null,
+        "formulationComposition": "formulationtest2",
+        "productDetails": "test details2",
+        "status": {
+            "id": 1,
+            "code": null,
+            "name": "Active"
+        }
+    },
+    {
+        "id": 3,
+        "productName": "aa",
+        "uom": {
+            "id": 1,
+            "code": null,
+            "name": "gram"
+        },
+        "batchNo": "Mandatory",
+        "shortCode": "qq",
+        "productType": {
+            "id": 2,
+            "code": null,
+            "name": "Tablet"
+        },
+        "division": {
+            "id": 1,
+            "code": null,
+            "name": "NACO"
+        },
+        "facilityTypes": null,
+        "labTypes": null,
+        "minShelfLife": "12",
+        "productImage": null,
+        "formulationComposition": "aa",
+        "productDetails": "ww",
+        "status": {
+            "id": 1,
+            "code": null,
+            "name": "Active"
+        }
+    }
+]
+
+3. delete 
+ endpoint : http://localhost:8080/admin/product/{1}/delete DELETE
+response : true

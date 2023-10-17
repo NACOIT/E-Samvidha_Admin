@@ -1,0 +1,109 @@
+1. http://localhost:8080/admin/access-settings/1/list GET
+Response:
+	[
+    {
+        "module": "Admin",
+        "accessSettingsInfo": [
+            {
+                "id": 25,
+                "roleId": 1,
+                "accessCode": "USER",
+                "accessName": "User Management",
+                "module": "Admin",
+                "canView": false,
+                "canCreate": false,
+                "canEdit": false,
+                "canDelete": false
+            },
+            {
+                "id": 26,
+                "roleId": 1,
+                "accessCode": "DESIGNATION",
+                "accessName": "Designation Management",
+                "module": "Admin",
+                "canView": false,
+                "canCreate": false,
+                "canEdit": false,
+                "canDelete": false
+            },
+            {
+                "id": 31,
+                "roleId": 1,
+                "accessCode": "NOTIFICATION",
+                "accessName": "Notification Management",
+                "module": "Admin",
+                "canView": false,
+                "canCreate": false,
+                "canEdit": false,
+                "canDelete": false
+            },
+            {
+                "id": 32,
+                "roleId": 1,
+                "accessCode": "LOCATION",
+                "accessName": "Location Management",
+                "module": "Admin",
+                "canView": false,
+                "canCreate": false,
+                "canEdit": false,
+                "canDelete": false
+            }
+        ]
+    }
+]
+
+2. http://localhost:8080/admin/access-settings/1/save POST
+Request Body:
+	[
+    {
+        "id": 46,
+        "roleId": 1,
+        "accessCode": "DESIGNATION",
+        "accessName": "Designation Management",
+        "module": "Admin",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    },
+    {
+        "id": 47,
+        "roleId": 1,
+        "accessCode": "LOCATION",
+        "accessName": "Location Management",
+        "module": "Admin",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    },
+    {
+        "id": 48,
+        "roleId": 1,
+        "accessCode": "NOTIFICATION",
+        "accessName": "Notification Management",
+        "module": "Admin",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    },
+    {
+        "id": 49,
+        "roleId": 1,
+        "accessCode": "USER",
+        "accessName": "User Management",
+        "module": "Admin",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    }
+]
+
+Response:
+	true
+	
+Exceptions :
+  1. If "id" is missing (new entry) : 404
+  2. If duplicate for (roleId and accessCode), constraint violation : 404

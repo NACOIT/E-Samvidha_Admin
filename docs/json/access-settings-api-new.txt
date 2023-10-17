@@ -1,0 +1,172 @@
+1. list Role access codes
+  endpoint : http://localhost:8080/admin/access-settings/2/list GET
+ response :
+[
+    {
+        "id": 9,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-PRODUCTS",
+        "accessName": "NACO Admin Products",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 10,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-REGIMEN",
+        "accessName": "NACO Admin Regimen",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 11,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-DASHBOARD",
+        "accessName": "NACO Admin Dashboard",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 12,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-SACS",
+        "accessName": "NACO Admin SACS",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 13,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-SUPPLIERS",
+        "accessName": "NACO Admin Suppliers",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 14,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-LABORATORIES",
+        "accessName": "NACO Admin Laboratories",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 15,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-CONTRACTS",
+        "accessName": "NACO Admin Contracts",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 16,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-INDENT",
+        "accessName": "NACO Admin Indent",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 17,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-PROGRAM-DIVISION",
+        "accessName": "NACO Admin Program Division",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 18,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-REPORTS",
+        "accessName": "NACO Admin Reports",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    },
+    {
+        "id": 19,
+        "roleId": 2,
+        "accessCode": "NACO-ADMIN-SETTINGS",
+        "accessName": "NACO Admin Settings",
+        "module": "NACO-ADMIN",
+        "canView": true,
+        "canCreate": true,
+        "canEdit": true,
+        "canDelete": true
+    }
+]
+
+2. Save 
+  Endpoint : http://localhost:8080/admin/access-settings/1/save POST
+ Request :
+[
+    {
+        "roleId": 1,
+        "accessCode": "NACO-DASHBOARD"
+    },
+    {
+        "roleId": 1,
+        "accessCode": "NACO-USERS"
+    }
+]
+
+Response : true
+
+3. List all access codes 
+   Endpoint : http://localhost:8080/admin/access-settings/list
+   Response :
+
+    [{
+        "id": null,
+        "roleId": null,
+        "accessCode": "NACO-DASHBOARD",
+        "accessName": "User Control",
+        "accessDescription": "Dashboard section",
+        "module": "NACO",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    },
+    {
+        "id": null,
+        "roleId": null,
+        "accessCode": "NACO-USERS",
+        "accessName": "NACO User Management",
+        "accessDescription": "NACO User management section",
+        "module": "NACO",
+        "canView": false,
+        "canCreate": false,
+        "canEdit": false,
+        "canDelete": false
+    }
+]

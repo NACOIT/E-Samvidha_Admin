@@ -1,0 +1,92 @@
+1. save 
+endpoint : http://localhost:8080/admin/regimen/save POST
+request :
+ {
+    "id": null,
+    "regimenName": "aa5",
+    "isActive": true,
+    "adultPed": "PED",
+    "line": "1st Line",
+    "regimenConstituentList": [
+        {
+            "productId": "1",
+            "productName": "chumma",
+            "uomId": "1",
+            "quantity": "3"
+        },
+        {
+            "productId": "2",
+            "productName": "chumma1",
+            "uomId": "1",
+            "quantity": "4"
+        }
+    ]
+}
+
+response :
+ true
+
+2. list
+ endpoint : http://localhost:8080/admin/regimen/list GET
+response :
+ [
+    {
+        "id": 1,
+        "regimenName": "Zidovudine300+Lamivudine150",
+        "adultPed": "ADULT",
+        "line": "1",
+        "regimenConstituentList": null,
+        "active": true
+    },
+    {
+        "id": 2,
+        "regimenName": "aa5",
+        "adultPed": "PED",
+        "line": "1st Line",
+        "regimenConstituentList": [
+            {
+                "id": 1,
+                "productId": 1,
+                "productName": "test product1",
+                "uomId": 1,
+                "uomName": "gram",
+                "quantity": 0
+            },
+            {
+                "id": 2,
+                "productId": 2,
+                "productName": "test product2",
+                "uomId": 1,
+                "uomName": "gram",
+                "quantity": 0
+            }
+        ],
+        "active": false
+    },
+    {
+        "id": 3,
+        "regimenName": "aa5",
+        "adultPed": "PED",
+        "line": "1st Line",
+        "regimenConstituentList": [
+            {
+                "id": 3,
+                "productId": 1,
+                "productName": "test product1",
+                "uomId": 1,
+                "uomName": "gram",
+                "quantity": 0
+            },
+            {
+                "id": 4,
+                "productId": 2,
+                "productName": "test product2",
+                "uomId": 1,
+                "uomName": "gram",
+                "quantity": 0
+            }
+        ],
+        "active": false
+    }
+]
+
