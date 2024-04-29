@@ -4,18 +4,20 @@ spring:
       database: POSTGRESQL
       generate-ddl: false
       open-in-view: false
-      show-sql: false
+      show-sql: true
       hibernate:
          ddl-auto: none
+         default-schema: anudan
       properties:
          hibernate.id.new_generator_mappings: true
          hibernate.cache.use_second_level_cache: false
          hibernate.cache.use_query_cache: true
          hibernate.generate_statistics: false
+         hibernate.default_schema: anudan
    datasource:
        type: com.zaxxer.hikari.HikariDataSource
        #dataSourceClassName: org.postgresql.Driver
-       url: jdbc:postgresql://10.247.185.11:9999/soch_stag_app_db?currentSchema=soch
+       url: jdbc:postgresql://10.247.185.11:9999/soch_stag_app_db?currentSchema=anudan
        username: soch_stag_app_user
        password: S0chApP2020
        hikari:
@@ -27,9 +29,9 @@ spring:
        password: Ldap@123           
 logging:
    level:
-       root: error
-       org: error
-       gov: error
+       root: info
+       org: info
+       gov: info
 notification:
    emailServiceUrl: http://localhost:8085/notification/sendemail/
    systemEmailServiceUrl: http://localhost:8085/notification/sendsystememail/

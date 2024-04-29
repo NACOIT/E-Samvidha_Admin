@@ -1293,6 +1293,56 @@ public class FacilityService {
 		return sacsFacilityDtoList;
 	}	
 	
+	
+	public List<SacsFacilityDto> getAllFacilityBySacsAPI(Long sacsId,String searchText,Boolean isExternal, Integer pageNumber, Integer pageSize, String sortBy,
+			String sortType) {
+		if (pageNumber == null || pageSize == null) {
+			pageNumber = 0;
+			pageSize = exportRecordsLimit;
+		}
+		List<Long> facilityTypeIds = new ArrayList<>();
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+		if (sortType.equalsIgnoreCase("asc")) {
+			pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
+		}
+		pageable = parenthesisEncapsulation(pageable);
+		List<FacilityListProjection> facilityList = new ArrayList<FacilityListProjection>();
+		List<SacsFacilityDto> sacsFacilityDtoList = new ArrayList<SacsFacilityDto>();
+		Page<FacilityListProjection> facilityPage = null;
+		int actualCount = 0;
+		Optional<List> facilityListOptional = null;
+//		LoginResponseDto currentUser = UserUtils.getLoggedInUserDetails();
+		
+		if (1 == FacilityTypeEnum.SACS.getFacilityType()) {
+			if(searchText == null || searchText == "") {
+				facilityPage = facilityRepository.findBySacsIdAndIsDeleteAndNotInFacilityTypes(sacsId,isExternal, pageable);			
+				actualCount = facilityRepository.findCountIdBySacsIdAndIsDeleteNotInFacilityTypes(sacsId,isExternal, Boolean.FALSE);
+			}else {
+				facilityPage = facilityRepository.findBySacsIdAndIsDeleteAndNotInFacilityTypesBySearch(sacsId,searchText,isExternal, pageable);			
+				actualCount = facilityRepository.findCountIdBySacsIdAndIsDeleteNotInFacilityTypesBySearch(sacsId,searchText,isExternal, Boolean.FALSE);
+			}
+		}else {
+//			if(searchText == null || searchText == "") {
+				facilityPage = facilityRepository.findBySacsIdAndIsDeleteAndNotInNACO(isExternal, pageable);			
+				actualCount = facilityRepository.findCountIdBySacsIdAndIsDeleteNotInNACO(isExternal, Boolean.FALSE);
+//			}else {
+//				facilityPage = facilityRepository.findBySacsIdAndIsDeleteAndNotInNACOBySearch(sacsId,searchText,isExternal, pageable);			
+//				actualCount = facilityRepository.findCountIdBySacsIdAndIsDeleteNotInNACOsBySearch(sacsId,searchText,isExternal, Boolean.FALSE);
+//			}
+		}
+		
+				
+		facilityListOptional = Optional.ofNullable(facilityPage.getContent());		
+		if (facilityListOptional != null && facilityListOptional.isPresent()) {
+			facilityList = facilityListOptional.get();
+		}		
+		sacsFacilityDtoList = FacilityMapperUtil.mapFacilityListProjectionToSacsfacilityDto(facilityList);
+		if (!sacsFacilityDtoList.isEmpty()) {
+			sacsFacilityDtoList.get(0).setActualRecordCount(actualCount);
+		}
+		return sacsFacilityDtoList;
+	}	
+	
 
 	public List<SacsFacilityDto> getAllFacilityByParentId(Long parentFacilityId) {
 		List<Facility> facilityList = new ArrayList<Facility>();
@@ -1468,122 +1518,217 @@ public class FacilityService {
 		return typologyDtoList;
 	}
 
+//	public SacsFacilityDto getFacilityByFacilityId(Long facilityId) {
+//		Optional<Facility> facility = facilityRepository.findById(facilityId);
+//		SacsFacilityDto sacsFacilityDto = new SacsFacilityDto();
+//		if (facility.isPresent()) {
+//			sacsFacilityDto = FacilityMapperUtil.mapFacilityToSacsfacilityDto(facility.get());
+//
+//			// Finding sacs name
+//			if (sacsFacilityDto.getSacsId() != null && sacsFacilityDto.getSacsId() != 0) {
+//				String sacsName = facilityRepository.findNameById(sacsFacilityDto.getSacsId());
+//				if (sacsName != null) {
+//					sacsFacilityDto.setSacsName(sacsName);
+//				}
+//			}
+//			// Finding Society Registration Certificate
+//			if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && (sacsFacilityDto.getFacilityTypeId() == 3l)) {
+//				Optional<Object[]> socityRegList = ngoDocumentRepository.findSocietyCertByFacilityId(sacsFacilityDto.getId()).stream().findFirst();
+//				logger.info("abc");
+//				logger.info(socityRegList.toString());   
+//				
+//				if (socityRegList != null && socityRegList.isPresent()) {  //   yaha hai
+//					List<NgoDocumentsDto> socityRegListDto = socityRegList.stream().map(object -> {
+//						NgoDocumentsDto socityReg = new NgoDocumentsDto();
+//						socityReg.setFileName(object[0] != null ? object[0].toString() : null);
+//						socityReg.setFilePath(object[1] != null? object[1].toString():null);
+//						socityReg.setSocietyValiditydate(object[2] != null? object[2].toString():null);
+//						return socityReg;
+//					}).collect(Collectors.toList());
+//					
+//					sacsFacilityDto.setSocityRegList(socityRegListDto);
+//				}
+//			}
+//			System.out.println("sacsFacilityDto.getIsExternal()>>>>>>>>>>>>>>>>>>>>>>>"+sacsFacilityDto.getIsExternal());
+//			// Finding Contract Letter
+//			if(sacsFacilityDto.getIsExternal() != null) {				
+//				if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && (sacsFacilityDto.getIsExternal() == false) && (sacsFacilityDto.getFacilityTypeId() == 3l)) {
+//					Optional<Object[]> contractLetterList = ngoDocumentRepository.findContractLetterByFacilityId(sacsFacilityDto.getId()).stream().findFirst();
+//					if (contractLetterList != null && !contractLetterList.isEmpty()) {
+//						List<NgoDocumentsDto> contractLetterListDto = contractLetterList.stream().map(object -> {
+//							NgoDocumentsDto contractLetter = new NgoDocumentsDto();
+//							contractLetter.setFileName(object[0] != null ? object[0].toString() : null);
+//							contractLetter.setFilePath(object[1] != null? object[1].toString():null);
+//							contractLetter.setContractValiditydate(object[2] != null? object[2].toString():null);
+//							return contractLetter;
+//						}).collect(Collectors.toList());
+//						
+//						sacsFacilityDto.setContractLetterList(contractLetterListDto);
+//					}
+//				}
+//			}
+//			if (facility.get().getFacilityLinkFacilityMapping() != null) {
+//				Set<FacilityLinkFacilityMapping> facilityLinkFacilityMappings = facility.get()
+//						.getFacilityLinkFacilityMapping();
+//				List<ArtPlusCoeMappingDto> artPlusMappingDtos = new ArrayList<ArtPlusCoeMappingDto>();
+//				List<ArtPlusCoeMappingDto> artCoeMappingDtos = new ArrayList<ArtPlusCoeMappingDto>();
+//				facilityLinkFacilityMappings.forEach(row -> {
+//					if (row.getLinkFacilityTypeId().getId()== FacilityTypeEnum.ART_PLUS_FACILITY.getFacilityType()) {
+//						if (row.getCurrentLinkStatus() == true) {
+//							ArtPlusCoeMappingDto artPlusMapping = new ArtPlusCoeMappingDto();
+//							artPlusMapping.setId(row.getId());
+//							if(row.getLinkFacilityId().getId()!=null) {
+//								artPlusMapping.setLinkFacilityId(row.getLinkFacilityId().getId());
+//							}
+//							if(row.getLinkFacilityTypeId().getId()!=null) {
+//								artPlusMapping.setLinkFacilityTypeId(row.getLinkFacilityTypeId().getId());
+//							}
+//							
+//							if(row.getParentFacilityId().getId()!=null) {
+//								artPlusMapping.setParentFacilityId(row.getParentFacilityId().getId());
+//							}
+//							if(row.getParentFacilityTypeId().getId()!=null) {
+//								artPlusMapping.setParentFacilityTypeId(row.getParentFacilityTypeId().getId());
+//							}
+//							artPlusMapping.setLinkFacilityName(row.getLinkFacilityId().getName());
+//							artPlusMapping.setCurrentLinkStatus(row.getCurrentLinkStatus());
+//							artPlusMapping.setLinkDate(row.getLinkDate());
+//							artPlusMapping.setIsActive(row.getIsActive());
+//							artPlusMapping.setIsDelete(row.getIsDelete());
+//							artPlusMappingDtos.add(artPlusMapping);
+//						}
+//
+//					} else if ((row.getLinkFacilityTypeId().getId() == FacilityTypeEnum.ART_COE_FACILITY.getFacilityType())) {
+//						if (row.getCurrentLinkStatus() == true) {
+//							ArtPlusCoeMappingDto coeMapping = new ArtPlusCoeMappingDto();
+//							coeMapping.setId(row.getId());
+//							if(row.getLinkFacilityId().getId()!=null) {
+//								coeMapping.setLinkFacilityId(row.getLinkFacilityId().getId());
+//							}
+//							if(row.getLinkFacilityTypeId().getId()!=null) {
+//								coeMapping.setLinkFacilityTypeId(row.getLinkFacilityTypeId().getId());
+//							}
+//							
+//							if(row.getParentFacilityId().getId()!=null) {
+//								coeMapping.setParentFacilityId(row.getParentFacilityId().getId());
+//							}
+//							if(row.getParentFacilityTypeId().getId()!=null) {
+//								coeMapping.setParentFacilityTypeId(row.getParentFacilityTypeId().getId());
+//							}
+//							coeMapping.setLinkFacilityName(row.getLinkFacilityId().getName());
+//							coeMapping.setCurrentLinkStatus(row.getCurrentLinkStatus());
+//							coeMapping.setLinkDate(row.getLinkDate());
+//							coeMapping.setIsActive(row.getIsActive());
+//							coeMapping.setIsDelete(row.getIsDelete());
+//							artCoeMappingDtos.add(coeMapping);
+//						}
+//
+//					}
+//
+//				});
+//				sacsFacilityDto.setArtPlusMapping(artPlusMappingDtos);
+//				sacsFacilityDto.setCoeMapping(artCoeMappingDtos);
+//
+//			}
+//
+//		} else {
+//			throwErrorManually("Facility Id: " + facilityId + " not present", "Facility Id");
+//		}
+//		return sacsFacilityDto;
+//	}
+	
 	public SacsFacilityDto getFacilityByFacilityId(Long facilityId) {
-		Optional<Facility> facility = facilityRepository.findById(facilityId);
-		SacsFacilityDto sacsFacilityDto = new SacsFacilityDto();
-		if (facility.isPresent()) {
-			sacsFacilityDto = FacilityMapperUtil.mapFacilityToSacsfacilityDto(facility.get());
+	    Optional<Facility> facilityOptional = facilityRepository.findById(facilityId);
+	    SacsFacilityDto sacsFacilityDto = new SacsFacilityDto();
+	    if (facilityOptional.isPresent()) {
+	        Facility facility = facilityOptional.get();
+	        sacsFacilityDto = FacilityMapperUtil.mapFacilityToSacsfacilityDto(facility);
 
-			// Finding sacs name
-			if (sacsFacilityDto.getSacsId() != null && sacsFacilityDto.getSacsId() != 0) {
-				String sacsName = facilityRepository.findNameById(sacsFacilityDto.getSacsId());
-				if (sacsName != null) {
-					sacsFacilityDto.setSacsName(sacsName);
-				}
-			}
-			// Finding Society Registration Certificate
-			if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && (sacsFacilityDto.getFacilityTypeId() == 3l)) {
-				Optional<Object[]> socityRegList = ngoDocumentRepository.findSocietyCertByFacilityId(sacsFacilityDto.getId()).stream().findFirst();
-				
-				if (socityRegList != null && !socityRegList.isEmpty()) {
-					List<NgoDocumentsDto> socityRegListDto = socityRegList.stream().map(object -> {
-						NgoDocumentsDto socityReg = new NgoDocumentsDto();
-						socityReg.setFileName(object[0] != null ? object[0].toString() : null);
-						socityReg.setFilePath(object[1] != null? object[1].toString():null);
-						socityReg.setSocietyValiditydate(object[2] != null? object[2].toString():null);
-						return socityReg;
-					}).collect(Collectors.toList());
-					
-					sacsFacilityDto.setSocityRegList(socityRegListDto);
-				}
-			}
-			System.out.println("sacsFacilityDto.getIsExternal()>>>>>>>>>>>>>>>>>>>>>>>"+sacsFacilityDto.getIsExternal());
-			// Finding Contract Letter
-			if(sacsFacilityDto.getIsExternal() != null) {				
-				if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && (sacsFacilityDto.getIsExternal() == false) && (sacsFacilityDto.getFacilityTypeId() == 3l)) {
-					Optional<Object[]> contractLetterList = ngoDocumentRepository.findContractLetterByFacilityId(sacsFacilityDto.getId()).stream().findFirst();
-					if (contractLetterList != null && !contractLetterList.isEmpty()) {
-						List<NgoDocumentsDto> contractLetterListDto = contractLetterList.stream().map(object -> {
-							NgoDocumentsDto contractLetter = new NgoDocumentsDto();
-							contractLetter.setFileName(object[0] != null ? object[0].toString() : null);
-							contractLetter.setFilePath(object[1] != null? object[1].toString():null);
-							contractLetter.setContractValiditydate(object[2] != null? object[2].toString():null);
-							return contractLetter;
-						}).collect(Collectors.toList());
-						
-						sacsFacilityDto.setContractLetterList(contractLetterListDto);
-					}
-				}
-			}
-			if (facility.get().getFacilityLinkFacilityMapping() != null) {
-				Set<FacilityLinkFacilityMapping> facilityLinkFacilityMappings = facility.get()
-						.getFacilityLinkFacilityMapping();
-				List<ArtPlusCoeMappingDto> artPlusMappingDtos = new ArrayList<ArtPlusCoeMappingDto>();
-				List<ArtPlusCoeMappingDto> artCoeMappingDtos = new ArrayList<ArtPlusCoeMappingDto>();
-				facilityLinkFacilityMappings.forEach(row -> {
-					if (row.getLinkFacilityTypeId().getId()== FacilityTypeEnum.ART_PLUS_FACILITY.getFacilityType()) {
-						if (row.getCurrentLinkStatus() == true) {
-							ArtPlusCoeMappingDto artPlusMapping = new ArtPlusCoeMappingDto();
-							artPlusMapping.setId(row.getId());
-							if(row.getLinkFacilityId().getId()!=null) {
-								artPlusMapping.setLinkFacilityId(row.getLinkFacilityId().getId());
-							}
-							if(row.getLinkFacilityTypeId().getId()!=null) {
-								artPlusMapping.setLinkFacilityTypeId(row.getLinkFacilityTypeId().getId());
-							}
-							
-							if(row.getParentFacilityId().getId()!=null) {
-								artPlusMapping.setParentFacilityId(row.getParentFacilityId().getId());
-							}
-							if(row.getParentFacilityTypeId().getId()!=null) {
-								artPlusMapping.setParentFacilityTypeId(row.getParentFacilityTypeId().getId());
-							}
-							artPlusMapping.setLinkFacilityName(row.getLinkFacilityId().getName());
-							artPlusMapping.setCurrentLinkStatus(row.getCurrentLinkStatus());
-							artPlusMapping.setLinkDate(row.getLinkDate());
-							artPlusMapping.setIsActive(row.getIsActive());
-							artPlusMapping.setIsDelete(row.getIsDelete());
-							artPlusMappingDtos.add(artPlusMapping);
-						}
+	        // Finding sacs name
+	        if (sacsFacilityDto.getSacsId() != null && sacsFacilityDto.getSacsId() != 0) {
+	            String sacsName = facilityRepository.findNameById(sacsFacilityDto.getSacsId());
+	            if (sacsName != null) {
+	                sacsFacilityDto.setSacsName(sacsName);
+	            }
+	        }
 
-					} else if ((row.getLinkFacilityTypeId().getId() == FacilityTypeEnum.ART_COE_FACILITY.getFacilityType())) {
-						if (row.getCurrentLinkStatus() == true) {
-							ArtPlusCoeMappingDto coeMapping = new ArtPlusCoeMappingDto();
-							coeMapping.setId(row.getId());
-							if(row.getLinkFacilityId().getId()!=null) {
-								coeMapping.setLinkFacilityId(row.getLinkFacilityId().getId());
-							}
-							if(row.getLinkFacilityTypeId().getId()!=null) {
-								coeMapping.setLinkFacilityTypeId(row.getLinkFacilityTypeId().getId());
-							}
-							
-							if(row.getParentFacilityId().getId()!=null) {
-								coeMapping.setParentFacilityId(row.getParentFacilityId().getId());
-							}
-							if(row.getParentFacilityTypeId().getId()!=null) {
-								coeMapping.setParentFacilityTypeId(row.getParentFacilityTypeId().getId());
-							}
-							coeMapping.setLinkFacilityName(row.getLinkFacilityId().getName());
-							coeMapping.setCurrentLinkStatus(row.getCurrentLinkStatus());
-							coeMapping.setLinkDate(row.getLinkDate());
-							coeMapping.setIsActive(row.getIsActive());
-							coeMapping.setIsDelete(row.getIsDelete());
-							artCoeMappingDtos.add(coeMapping);
-						}
+	        // Finding Society Registration Certificate
+	        if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && (sacsFacilityDto.getFacilityTypeId() == 3L)) {
+	            Optional<List<Object[]>> societyRegOptional = Optional.ofNullable(ngoDocumentRepository.findSocietyCertByFacilityId(sacsFacilityDto.getId()));
+	            if (societyRegOptional.isPresent() && !societyRegOptional.get().isEmpty()) {
+	                List<NgoDocumentsDto> societyRegListDto = new ArrayList<>();
+	                for (Object[] objects : societyRegOptional.get()) {
+	                    NgoDocumentsDto societyReg = new NgoDocumentsDto();
+	                    societyReg.setFileName(objects[0] != null ? objects[0].toString() : null);
+	                    societyReg.setFilePath(objects[1] != null ? objects[1].toString() : null);
+	                    societyReg.setSocietyValiditydate(objects[2] != null ? objects[2].toString() : null);
+	                    societyRegListDto.add(societyReg);
+	                }
+	                sacsFacilityDto.setSocityRegList(societyRegListDto);
+	            }
+	        }
 
-					}
+	        // Finding Contract Letter
+	        if (sacsFacilityDto.getIsExternal() != null) {
+	            if ((sacsFacilityDto.getId() != null) && (sacsFacilityDto.getId() != 0) && !sacsFacilityDto.getIsExternal() && (sacsFacilityDto.getFacilityTypeId() == 3L)) {
+	                Optional<List<Object[]>> contractLetterOptional = Optional.ofNullable(ngoDocumentRepository.findContractLetterByFacilityId(sacsFacilityDto.getId()));
+	                if (contractLetterOptional.isPresent() && !contractLetterOptional.get().isEmpty()) {
+	                    List<NgoDocumentsDto> contractLetterListDto = new ArrayList<>();
+	                    for (Object[] objects : contractLetterOptional.get()) {
+	                        NgoDocumentsDto contractLetter = new NgoDocumentsDto();
+	                        contractLetter.setFileName(objects[0] != null ? objects[0].toString() : null);
+	                        contractLetter.setFilePath(objects[1] != null ? objects[1].toString() : null);
+	                        contractLetter.setContractValiditydate(objects[2] != null ? objects[2].toString() : null);
+	                        contractLetterListDto.add(contractLetter);
+	                    }
+	                    sacsFacilityDto.setContractLetterList(contractLetterListDto);
+	                }
+	            }
+	        }
 
-				});
-				sacsFacilityDto.setArtPlusMapping(artPlusMappingDtos);
-				sacsFacilityDto.setCoeMapping(artCoeMappingDtos);
-
-			}
-
-		} else {
-			throwErrorManually("Facility Id: " + facilityId + " not present", "Facility Id");
-		}
-		return sacsFacilityDto;
+	        // Facility Link Facility Mapping
+	        if (facility.getFacilityLinkFacilityMapping() != null) {
+	            List<ArtPlusCoeMappingDto> artPlusMappingDtos = new ArrayList<>();
+	            List<ArtPlusCoeMappingDto> artCoeMappingDtos = new ArrayList<>();
+	            for (FacilityLinkFacilityMapping mapping : facility.getFacilityLinkFacilityMapping()) {
+	                if (mapping.getLinkFacilityTypeId().getId() == FacilityTypeEnum.ART_PLUS_FACILITY.getFacilityType() && mapping.getCurrentLinkStatus()) {
+	                    artPlusMappingDtos.add(mapToArtPlusCoeMappingDto(mapping));
+	                } else if (mapping.getLinkFacilityTypeId().getId() == FacilityTypeEnum.ART_COE_FACILITY.getFacilityType() && mapping.getCurrentLinkStatus()) {
+	                    artCoeMappingDtos.add(mapToArtPlusCoeMappingDto(mapping));
+	                }
+	            }
+	            sacsFacilityDto.setArtPlusMapping(artPlusMappingDtos);
+	            sacsFacilityDto.setCoeMapping(artCoeMappingDtos);
+	        }
+	    } else {
+	        throwErrorManually("Facility Id: " + facilityId + " not present", "Facility Id");
+	    }
+	    return sacsFacilityDto;
 	}
+
+	private ArtPlusCoeMappingDto mapToArtPlusCoeMappingDto(FacilityLinkFacilityMapping mapping) {
+	    ArtPlusCoeMappingDto mappingDto = new ArtPlusCoeMappingDto();
+	    mappingDto.setId(mapping.getId());
+	    if (mapping.getLinkFacilityId().getId() != null) {
+	        mappingDto.setLinkFacilityId(mapping.getLinkFacilityId().getId());
+	    }
+	    if (mapping.getLinkFacilityTypeId().getId() != null) {
+	        mappingDto.setLinkFacilityTypeId(mapping.getLinkFacilityTypeId().getId());
+	    }
+	    if (mapping.getParentFacilityId().getId() != null) {
+	        mappingDto.setParentFacilityId(mapping.getParentFacilityId().getId());
+	    }
+	    if (mapping.getParentFacilityTypeId().getId() != null) {
+	        mappingDto.setParentFacilityTypeId(mapping.getParentFacilityTypeId().getId());
+	    }
+	    mappingDto.setLinkFacilityName(mapping.getLinkFacilityId().getName());
+	    mappingDto.setCurrentLinkStatus(mapping.getCurrentLinkStatus());
+	    mappingDto.setLinkDate(mapping.getLinkDate());
+	    mappingDto.setIsActive(mapping.getIsActive());
+	    mappingDto.setIsDelete(mapping.getIsDelete());
+	    return mappingDto;
+	}
+
 
 	public List<SacsFacilityDto> getFacilityByFacilityTypeIdAndSacs(Long facilityTypeId) {
 		List<Facility> facilityList = new ArrayList<Facility>();

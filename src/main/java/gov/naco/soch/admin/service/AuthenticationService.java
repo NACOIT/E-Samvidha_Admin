@@ -344,7 +344,7 @@ public class AuthenticationService implements UserDetailsService {
 			List<UserRoleAccessProjection> userRoleAccessList = getUserRoleAccessByUserId(userId);
 			// logger.error("APIEXECUTIONTIME LOGINEXECUTIONTIME 3 --> "+
 			// (System.currentTimeMillis() - t3) + " ms");
-			long t4 = System.currentTimeMillis();
+//			long t4 = System.currentTimeMillis();
 			List<String> accessCodes = getUserRolesAccess(userRoleAccessList);
 			// this.accessCodes = accessCodes;
 			// logger.error("APIEXECUTIONTIME 4 --> "+ (System.currentTimeMillis() - t4) + "

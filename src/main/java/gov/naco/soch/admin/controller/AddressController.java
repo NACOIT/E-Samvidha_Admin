@@ -88,6 +88,7 @@ public class AddressController {
 		locationDtoList = addressService.getTownList(subdistrictId);
 		return locationDtoList;
 	}
+//	----------
 	
 	@Autowired
 	private FacilityTypeService facilityTypeService;

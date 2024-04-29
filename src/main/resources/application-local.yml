@@ -8,6 +8,7 @@ spring:
       hibernate:
          ddl-auto: none
          use-new-id-generator-mappings: true
+         default-schema: anudan 
       properties:
          hibernate.id.new_generator_mappings: true
          hibernate.cache.use_second_level_cache: false
@@ -21,9 +22,11 @@ spring:
        #password: SochApp@2020
        
        #url: jdbc:postgresql://localhost:5432/anudan?currentSchema=soch
-       url: jdbc:postgresql://localhost:5432/anudan?currentSchema=soch
-       username: postgres
-       password: 12345
+       url: jdbc:postgresql://10.25.69.25:5432/soch_local_app_db?currentSchema=anudan #yaha pe localhost tha
+       username: soch_stag_app_user
+       password: SochApp@2020
+       #username: postgres
+       #password: 12345
        
        #url: jdbc:postgresql://localhost:5432/postgres?currentSchema=soch
        #username: postgres

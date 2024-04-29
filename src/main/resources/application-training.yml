@@ -16,7 +16,7 @@ spring:
    datasource:
       type: com.zaxxer.hikari.HikariDataSource
        #dataSourceClassName: org.postgresql.Driver
-      url: jdbc:postgresql://10.247.185.10:5432/soch_train_app_db?currentSchema=soch
+      url: jdbc:postgresql://10.247.185.10:5432/anudaan?currentSchema=soch
       username: soch_train_app_user
       password: S0chApP2020
       hikari:

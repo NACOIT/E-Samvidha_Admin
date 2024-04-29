@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property name="destination" value="${catalina.base:-./temp}/logs/soch-admin-log" />
-	<property name="archiveDestination" value="${catalina.base:-./temp}/logs/archived/soch-admin-log" />
+	<property name="destination" value="${catalina.base:-./temp}/logs/soch-admin-esamvida-log" />
+	<property name="archiveDestination" value="${catalina.base:-./temp}/logs/archived/soch-admin-esamvida-log" />
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
     <springProfile name="local">

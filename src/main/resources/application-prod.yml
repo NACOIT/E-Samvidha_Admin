@@ -7,15 +7,17 @@ spring:
       show-sql: false
       hibernate:
          ddl-auto: none
+         default-schema: anudan
       properties:
          hibernate.id.new_generator_mappings: true
          hibernate.cache.use_second_level_cache: false
          hibernate.cache.use_query_cache: true
          hibernate.generate_statistics: false
+         hibernate.default_schema: anudan
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     #dataSourceClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/soch-db-dev?currentSchema=soch
+    url: jdbc:postgresql://localhost:5432/soch-db-dev?currentSchema=anudan
     username: postgres
     password: postgres
     hikari:
